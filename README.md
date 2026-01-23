@@ -112,5 +112,3 @@ devtools/
 - **AssertJ** – для удобных assert-проверок в тестах.
 ## Feature DVT-4
 Active development branch for DVT-4 task
-- Created: Fri Jan 23 13:03:45 RTZ 2026
-- PR: #2
