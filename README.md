@@ -112,5 +112,22 @@ devtools/
 - **AssertJ** – для удобных assert-проверок в тестах.
 ## Feature DVT-4
 Active development branch for DVT-4 task
+## feature/DVT-5: Санитарный коммит очистки
+
+### Хэш коммита очистки:
+`772d40696f14e33c38b05096205df030cf103d48`
+
+### Что сделано:
+1. ✅ Обновлен `.gitignore` с правилами для мусорных файлов
+2. ✅ Удалены .idea, build, .gradle из индекса Git
+3. ✅ Добавлено правило «git status clean» в Runbook
+4. ✅ `git check-ignore` корректно фильтрует .DS_Store, .idea/workspace.xml
+
+### Команды для проверки:
+```bash
+git check-ignore -v .DS_Store
+git check-ignore -v .idea/workspace.xml
+git status
+git diff --name-status HEAD~1..HEAD
 
 
