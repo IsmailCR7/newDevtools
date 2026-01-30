@@ -1,0 +1,60 @@
+# 1. Имя workflow (видно в интерфейсе GitHub)
+name: Java CI with Checkstyle and Tests
+
+# 2. Триггеры - КОГДА запускать?
+on:
+  push:                     # При загрузке кода
+    branches:               # В какие ветки?
+      - master              # Главная ветка
+      - 'feature/**'        # Любая ветка, начинающаяся с feature/
+  pull_request:             # При создании Pull Request
+    branches:               # В какую ветку?
+      - master              # Только в master
+
+# 3. Jobs - ЧТО делать?
+jobs:
+  build-and-test:           # Название job (может быть любым)
+    runs-on: ubuntu-latest  # На какой системе запускать? (Linux)
+    
+    # 4. Steps - КАК делать?
+    steps:
+      # Шаг 1: Получить код из репозитория
+      - name: Checkout code
+        uses: actions/checkout@v4  # Стандартное действие GitHub
+      
+      # Шаг 2: Дать права на выполнение gradlew
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+        # Почему это нужно?
+        # GitHub Actions запускается на Linux
+        # В Linux файлы без прав не выполняются
+        # Эта команда дает права: chmod +x = "сделай исполняемым"
+      
+      # Шаг 3: Установить Java
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '25'
+          cache: 'gradle'
+      
+      # Шаг 4: Проверить стиль кода
+      - name: Run Checkstyle
+        run: ./gradlew --no-daemon checkstyleMain
+      
+      # Шаг 5: Запустить тесты
+      - name: Run tests
+        run: ./gradlew --no-daemon test
+      
+      # Шаг 6: Сгенерировать отчет о покрытии
+      - name: Generate JaCoCo report
+        run: ./gradlew --no-daemon jacocoTestReport
+      
+      # Шаг 7: Проверить покрытие (минимум 80%)
+      - name: Verify coverage
+        run: ./gradlew --no-daemon jacocoTestCoverageVerification
+      
+      # Шаг 8: Собрать проект
+      - name: Build project
+        run: ./gradlew --no-daemon build
+      
