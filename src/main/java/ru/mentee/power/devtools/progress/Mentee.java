@@ -1,4 +1,4 @@
-package ru.mentee.power.newDevtools.progress;
+package ru.mentee.power.devtools.progress;
 
 
 /**

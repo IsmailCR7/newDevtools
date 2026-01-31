@@ -1,4 +1,4 @@
-package ru.mentee.power.newDevtools.student;
+package ru.mentee.power.devtools.student;
 
 import java.util.ArrayList;
 import java.util.Collections;

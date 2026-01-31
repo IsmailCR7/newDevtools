@@ -1,4 +1,4 @@
-package ru.mentee.power.newDevtools.student;
+package ru.mentee.power.devtools.student;
 
 import org.junit.jupiter.api.Test;
 import ru.mentee.power.ProgressDemo;
